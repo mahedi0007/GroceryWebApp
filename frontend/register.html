@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Register — Grocery App</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo"><a href="index.html">GroceryApp</a></div>
+  </header>
+
+  <main class="container">
+    <h1>Register</h1>
+    <form id="register-form">
+      <label>Name
+        <input name="name" required />
+      </label>
+      <label>Email
+        <input name="email" type="email" required />
+      </label>
+      <label>Password
+        <input name="password" type="password" required />
+      </label>
+      <button class="btn" type="submit">Create account</button>
+    </form>
+    <p>Already have an account? <a href="login.html">Login</a></p>
+    <div id="register-msg"></div>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script>
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const f = e.target;
+      try {
+        const data = {
+          name: f.name.value,
+          email: f.email.value,
+          password: f.password.value
+        };
+        const resp = await apiRegister(data);
+        if (resp && resp.success) {
+          alert('Account created. Please login.');
+          location.href = 'login.html';
+        } else {
+          document.getElementById('register-msg').innerText = 'Registration failed';
+        }
+      } catch (err) {
+        document.getElementById('register-msg').innerText = 'Error: ' + err.message;
+      }
+    });
+  </script>
+</body>
+</html>

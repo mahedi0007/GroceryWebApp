@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Cart — Grocery App</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="logo"><a href="index.html">GroceryApp</a></div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="products.html">Products</a>
+            <a href="profile.html" id="nav-profile">Profile</a>
+            <a href="login.html" id="nav-login">Login</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>Your Cart</h1>
+        <div id="cart-items"></div>
+        <div class="cart-summary">
+            <p>Total: <strong id="cart-total">₹0.00</strong></p>
+            <a href="checkout.html"> <button class="btn" id="checkout-btn">Proceed to Checkout</button></a>
+
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>© GroceryApp</p>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+
+</html>
