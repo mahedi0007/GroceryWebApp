@@ -3,10 +3,28 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Login — Grocery App</title>
-    <link href="{{ url_for('static', path='frontend/css/style.css') }}" rel="stylesheet">
+  <title>{{ title }}
+  </title>
+    <link href="{{ url_for('static', path='/css/style.css') }}" rel="stylesheet">
 </head>
 <body>
+   <header class="site-header">
+    <div class="logo"><a href="/login">GroceryApp</a></div>
+  </header>
+   <main class="container">
+    <h1>Login</h1>
+    <form id="login-form">
+      <label>Email
+        <input name="email" type="email" required />
+      </label>
+      <label>Password
+        <input name="password" type="password" required />
+      </label>
+      <button class="btn" type="submit">Login</button>
+    </form>
+    <p>Don't have an account? <a href="/register">Register</a></p>
+    <div id="login-msg"></div>
+  </main>
   
 </body>
 </html>
