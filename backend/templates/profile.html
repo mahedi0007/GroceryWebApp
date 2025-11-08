@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{{ title }}</title>
+    <link href="{{ url_for('static', path='/css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo"><a href="/index">GroceryApp</a></div>
+    <nav>
+      <a href="/index">Home</a>
+      <a href="/products">Products</a>
+      <a href="/cart">Cart</a>
+      <a href="/login" id="nav-login">Login</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Profile</h1>
+    <div id="profile-area">
+      <p id="not-logged">You are not logged in. <a href="/login">Login</a></p>
+      <div id="profile-details" style="display:none;">
+        <p><strong id="user-name"></strong></p>
+        <p id="user-email"></p>
+        <h3>Order history</h3>
+        <ul id="order-history"></ul>
+        <button class="btn" id="logout-btn">Logout</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>© GroceryApp</p>
+  </footer>
+
+  <script src="static/js/api.js"></script>
+  <script src="static/js/auth.js"></script>
+  <script src="static/js/main.js"></script>
+  <script>
+    async function loadProfile() {
+      const token = getToken();
+      if (!token) {
+        document.getElementById('not-logged').style.display = 'block';
+        return;
+      }
+
+      try {
+        const me = await apiGetProfile();
+        document.getElementById('not-logged').style.display = 'none';
+        document.getElementById('profile-details').style.display = 'block';
+        document.getElementById('user-name').innerText = me.name || me.username || 'User';
+        document.getElementById('user-email').innerText = me.email || '';
+        const orders = me.orders || [];
+        const list = document.getElementById('order-history');
+        list.innerHTML = '';
+        orders.forEach(o => {
+          const li = document.createElement('li');
+          li.textContent = `Order ${o.id} — ₹${(o.total||0).toFixed(2)} — ${o.status || 'placed'}`;
+          list.appendChild(li);
+        });
+      } catch (err) {
+        console.error(err);
+        document.getElementById('not-logged').style.display = 'block';
+      }
+    }
+
+    document.getElementById('logout-btn')?.addEventListener('click', () => {
+      clearAuth();
+      location.reload();
+    });
+
+    loadProfile();
+  </script>
+</body>
+</html>

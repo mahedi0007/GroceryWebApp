@@ -29,7 +29,7 @@
     <div id="register-msg"></div>
   </main>
 
-  <script src="js/api.js"></script>
+  <script src="static/js/api.js"></script>
   <script>
     document.getElementById('register-form').addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -43,7 +43,7 @@
         const resp = await apiRegister(data);
         if (resp && resp.success) {
           alert('Account created. Please login.');
-          location.href = 'login.html';
+          location.href = '/login';
         } else {
           document.getElementById('register-msg').innerText = 'Registration failed';
         }

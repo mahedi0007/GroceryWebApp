@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{{ title }}</title>
+    <link href="{{ url_for('static', path='/css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo"><a href="/index">GroceryApp</a></div>
+    <nav>
+      <a href="/index">Home</a>
+      <a href="/products">Products</a>
+      <a href="/cart">Cart</a>
+      <a href="/profile" id="nav-profile">Profile</a>
+      <a href="/login" id="nav-login">Login</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Checkout</h1>
+
+    <div id="checkout-area">
+      <form id="checkout-form">
+        <label>Full name
+          <input name="name" required />
+        </label>
+
+        <label>Address
+          <textarea name="address" required></textarea>
+        </label>
+
+        <label>Phone
+          <input name="phone" required />
+        </label>
+
+        <label>Payment method
+          <select name="payment" required>
+            <option value="cod">Cash on delivery</option>
+            <option value="card">Card (demo)</option>
+          </select>
+        </label>
+
+        <button class="btn" type="submit">Place order</button>
+      </form>
+      <div id="checkout-message"></div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>© GroceryApp</p>
+  </footer>
+
+  <script src="static/js/api.js"></script>
+  <script src ="static/js/main.js"></script>
+  <script>
+    document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const data = {
+        name: form.name.value,
+        address: form.address.value,
+        phone: form.phone.value,
+        payment_method: form.payment.value,
+        items: getCartItems() // from cart helper in api.js
+      };
+
+      // call backend checkout endpoint
+      try {
+        const resp = await apiCheckout(data);
+        // if backend returns success, clear cart
+        if (resp && resp.success) {
+          clearCart();
+          updateCartCountUI();
+          document.getElementById('checkout-message').innerText = 'Order placed! Order ID: ' + (resp.order_id || '-');
+        } else {
+          document.getElementById('checkout-message').innerText = 'Failed to place order. (demo mode)';
+        }
+      } catch (err) {
+        console.error(err);
+        document.getElementById('checkout-message').innerText = 'Error placing order: ' + err.message;
+      }
+    });
+  </script>
+</body>
+</html>

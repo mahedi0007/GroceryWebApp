@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{{ title }}</title>
+    <link href="{{ url_for('static', path='/css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo"><a href="/index">GroceryApp</a></div>
+    <nav>
+      <a href="/products">Products</a>
+      <a href="/cart">Cart <span id="cart-count">0</span></a>
+      <a href="/profile" id="nav-profile">Profile</a>
+      <a href="/login" id="nav-login">Login</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Fresh groceries delivered to your door</h1>
+      <p>Daily essentials, fruits, vegetables, snacks — simple shopping.</p>
+      <a class="btn" style="text-decoration: none;" href="/products">Shop Now</a>
+    </section>
+
+    <section class="featured">
+      <h2>Featured products</h2>
+      <div id="featured-grid" class="grid"></div>
+    </section>
+
+    <section class="categories">
+      <h2>Categories</h2>
+      <div class="chips">
+        <button class="chip" data-cat="all">All</button>
+        <button class="chip" data-cat="fruits">Fruits</button>
+        <button class="chip" data-cat="vegetables">Vegetables</button>
+        <button class="chip" data-cat="dairy">Dairy</button>
+        <button class="chip" data-cat="snacks">Snacks</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© GroceryApp • Simple grocery demo</p>
+  </footer>
+
+  <script src="static/js/api.js"></script>
+  <script src="static/js/main.js"></script>
+</body>
+</html>

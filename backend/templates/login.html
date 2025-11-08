@@ -25,6 +25,27 @@
     <p>Don't have an account? <a href="/register">Register</a></p>
     <div id="login-msg"></div>
   </main>
+
+  
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/auth.js"></script>
+  <script>
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      try {
+        const resp = await apiLogin(form.email.value, form.password.value);
+        if (resp && resp.token) {
+          saveToken(resp.token);
+          location.href = '/profile';
+        } else {
+          document.getElementById('login-msg').innerText = 'Login failed';
+        }
+      } catch (err) {
+        document.getElementById('login-msg').innerText = 'Error: ' + err.message;
+      }
+    });
+  </script>
   
 </body>
 </html>

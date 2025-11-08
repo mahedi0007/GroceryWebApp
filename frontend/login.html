@@ -36,7 +36,7 @@
         const resp = await apiLogin(form.email.value, form.password.value);
         if (resp && resp.token) {
           saveToken(resp.token);
-          location.href = 'profile.html';
+          location.href = '/profile';
         } else {
           document.getElementById('login-msg').innerText = 'Login failed';
         }

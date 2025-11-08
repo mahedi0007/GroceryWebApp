@@ -1,5 +1,5 @@
 # backend/main.py
-from fastapi import FastAPI  , Request 
+from fastapi import FastAPI  , Request , Form
 from fastapi.responses import HTMLResponse 
 from fastapi.middleware.cors import CORSMiddleware
 from . import models
@@ -7,9 +7,12 @@ from .database import engine
 from .auth import router as auth_router
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from pathlib import Path
 
 # Create DB tables
 models.Base.metadata.create_all(bind=engine)
+
+Path = Path(__file__).resolve().parent 
 
 app = FastAPI(title="GroceryApp Backend")
 
@@ -28,11 +31,37 @@ app.add_middleware(
 app.include_router(auth_router)
 
 @app.get("/login", response_class=HTMLResponse)
-def login(request: Request):
+def login(request: Request ):
     context = {"request": request, "title": "Login - GroceryApp", "message": "Hello from Jinja2!"}
+
     return templates.TemplateResponse("login.html", context)
 
 @app.get("/register")
 async def reg_user(request : Request ):
     context = {"request": request, "title": "Register - GroceryApp"}
     return templates.TemplateResponse("register.html", context)
+
+@app.get("/profile", response_class=HTMLResponse)
+def profile(request: Request ):
+    context = {"request": request, "title": "Profile - GroceryApp"}
+
+    return templates.TemplateResponse("profile.html", context)
+ 
+@app.get("/index", response_class=HTMLResponse)
+async def home(request : Request ):
+    context = {"request": request, "title": "Home - GroceryApp"}
+    return templates.TemplateResponse("index.html", context)
+@app.get("/products", response_class=HTMLResponse)
+async def products(request : Request ):
+    context = {"request": request, "title": "Products - GroceryApp"}
+    return templates.TemplateResponse("products.html", context)
+
+@app.get("/cart", response_class=HTMLResponse)
+async def cart(request : Request ):
+    context = {"request": request, "title": "Cart - GroceryApp"}
+    return templates.TemplateResponse("cart.html", context)
+
+@app.get("/checkout", response_class=HTMLResponse)
+async def checkout(request: Request):
+    context = {"request" :request, "title" :"checkout - GroceryApp"}
+    return templates.TemplateResponse("checkout.html", context)
