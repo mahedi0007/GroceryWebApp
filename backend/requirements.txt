@@ -6,3 +6,6 @@ python-jose
 passlib[bcrypt]
 pydantic
 python-dotenv
+jinja2
+argon2_cffi
+pydantic[email]

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static', path='/css/adminstyle.css') }}" rel="stylesheet">
+
+    <title>{{title}}</title>
+</head>
+
+<body>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>GroceryApp</h2>
+            <span class="close-btn" id="closeSidebar">✕</span>
+        </div>
+
+        <a href="/admin">Dashboard</a>
+        <a href="/admin/products">Add Products</a>
+        <a href="#orders">Orders</a>
+        <a href="/admin/createCategories">Categories</a>
+        <a href="#">Users</a>
+        <a href="#">Profile</a>
+    </div>
+    <div class="topbar">
+        <span class="menu-btn" id="openSidebar">☰</span>
+        <h1>Admin Panel</h1>
+    </div>
+
+    <section>
+        <div>
+            <h2>Add Products</h2>
+            <form id="productForm" action="/products/add" method="post" enctype="multipart/form-data">
+
+                <label>Product Name:</label><br>
+                <input type="text" id="name" name="name" required><br><br>
+
+                <label>Description:</label><br>
+                <textarea id="description" name="description"></textarea><br><br>
+
+                <label>Price:</label><br>
+                <input type="number" id="price" name="price" step="0.01" required><br><br>
+
+                <label>Quantity:</label><br>
+                <input type="number" id="quantity" name="quantity" required><br><br>
+
+                <label>Available:</label><br>
+                <input type="checkbox" id="is_available" name="is_available" checked><br><br>
+
+                <label>Category ID:</label><br>
+                <input type="number" id="category_id" name="category_id" required><br><br>
+
+                <label>Image URL :</label><br>
+                <input type="text" id="image_url" name="image_url" required><br><br>
+
+                <button type="submit">Add Product</button>
+            </form>
+        </div>
+    </section>
+
+    <script src="{{ url_for('static' , path='/js/script.js') }}">  </script>
+    <script src="{{ url_for('static' , path='/js/add.js') }}">  </script>
+    <!-- <script src="/static/js/script.js"></script>
+    <script src="/static/js/add.js"></script> -->
+</body>
+
+</html>

@@ -1,0 +1,327 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: #f4f5f7;
+}
+
+/* ---------------- Sidebar ---------------- */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #ffffff;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding-top: 20px;
+    border-right: 1px solid #e5e5e5;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.05);
+    transition: 0.3s ease;
+    z-index: 999;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px 20px;
+    border-bottom: 1px solid #eee;
+}
+/*  button style */
+
+    
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+.page-btn {
+    padding: 6px 12px;
+    border: none;
+    background: #4a90e2;
+    color: white;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.page-btn:hover {
+    background: #357ABD;
+}
+
+.page-info {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+@media (max-width: 480px) {
+    .page-info {
+        font-size: 14px;
+    }
+    .page-btn {
+        padding: 5px 10px;
+        font-size: 14px;
+    }
+}
+
+
+.sidebar h2 {
+    font-size: 20px;
+    color: #2c7a7b;
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px 20px;
+    text-decoration: none;
+    color: #333;
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+.sidebar a:hover {
+    background: #e6f5f4;
+    color: #2c7a7b;
+}
+
+/* Close Button (Mobile) */
+.close-btn {
+    display: none;
+    cursor: pointer;
+}
+
+/* ---------------- Top Bar ---------------- */
+.topbar {
+    height: 60px;
+    width: 100%;
+    background: #ffffff;
+    padding: 15px 20px;
+    margin-left: 250px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.menu-btn {
+    font-size: 24px;
+    cursor: pointer;
+    display: none;
+}
+
+/* ---------------- Main Content ---------------- */
+.content {
+    margin-left: 250px;
+    padding: 20px;
+}
+
+h2 {
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+/* ---------------- Tables ---------------- */
+.table-container {
+    overflow-x: auto;
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #edf2f7;
+    text-align: left;
+    padding: 12px;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+/* Actions */
+.edit {
+    color: #2f855a;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.delete {
+    color: #c53030;
+    cursor: pointer;
+}
+
+/* ---------------- Responsive ---------------- */
+@media(max-width: 768px) {
+
+    /* Sidebar hidden by default */
+    .sidebar {
+        left: -260px;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .close-btn {
+        display: block;
+    }
+
+    .topbar {
+        margin-left: 0;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .content {
+        margin-left: 0;
+    }
+
+    /* Responsive table */
+    table, thead, tbody, tr, td, th {
+        display: block;
+        width: 100%;
+    }
+
+    th {
+        display: none;
+    }
+
+    td {
+        position: relative;
+        padding-left: 50%;
+        border-bottom: 1px solid #ddd;
+    }
+
+    td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        top: 12px;
+        font-weight: 600;
+        color: #555;
+    }
+}
+
+/* add product form  */
+/* Page Background */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f2f6fc;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container */
+form {
+    width: 90%;
+    max-width: 500px;
+    background: #ffffff;
+    padding: 25px;
+    margin: 40px auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Labels */
+label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #444;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    margin-bottom: 15px;
+    border: 1px solid #d5d5d5;
+    border-radius: 8px;
+    font-size: 15px;
+    background: #fafafa;
+    transition: 0.3s ease;
+}
+
+/* Focus effect */
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #4a90e2;
+    background: #fff;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+}
+
+Button
+button {
+    width: 100%;
+    padding: 12px;
+    background: #4a90e2;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #357abd;
+}
+
+/* Success Page Styles */
+.success-box {
+    width: 90%;
+    max-width: 600px;
+    background: white;
+    margin: 40px auto;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.success-box img {
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    form {
+        padding: 18px;
+    }
+    button {
+        font-size: 14px;
+       
+    }
+}
+
+
+

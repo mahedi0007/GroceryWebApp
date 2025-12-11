@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="{{ url_for('static', path='/css/adminstyle.css') }}" rel="stylesheet">
+     
+
+    <title>{{title}}</title>
+</head>
+
+<body>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>GroceryApp</h2>
+            <span class="close-btn" id="closeSidebar">✕</span>
+        </div>
+
+        <a href="/admin">Dashboard</a>
+        <a href="/admin/products">Add Products</a>
+        <a href="#orders">Orders</a>
+        <a href="/admin/createCategories">Create Categories</a>
+        <a href="#">Users</a>
+        <a href="#">Profile</a>
+    </div>
+
+    <!-- Top Bar -->
+    <div class="topbar">
+        <span class="menu-btn" id="openSidebar">☰</span>
+        <h1>Admin Panel</h1>
+    </div>
+
+    <main class="">
+        <!-- products list View -->
+        <section class="content">
+            <h2>Product List</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Discription</th>
+                            <th>Is_Availebel</th>
+                            <th>Price</th>
+                            <th>Quantatiy</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if products %}
+                            {% for product in products %}
+                            <tr>
+                                <td data-label="ID">{{ product.product_id }}</td>
+                                <td data-label="Name">{{ product.product_name }}</td>
+                                <td data-label="Discription">{{ product.product_description }}</td>
+                                <td data-label="Is_availeble">{{ product.is_available }}</td>
+                                <td data-label="Price">{{ product.product_price }}</td>
+                                <td data-label="Qty">{{ product.product_quantity }}</td>
+                                <td data-label="Actions">
+                                    <a href="#" class="edit">Edit</a>
+                                    <a class="delete" href="/admin/products/delete/{{product.product_id}}" onclick="return confirm('are you sure to Delete Product ?')" >Delete</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="6" style="text-align: center;">No products found</td>
+                            </tr>
+                        {% endif %}
+
+                    </tbody>
+                </table>
+
+            </div>
+            <br>
+            <!-- <div class="pagination">
+                <button class="page-btn prev">&lt;</button>
+                <span class="page-info">Page 1 of 10</span>
+                <button class="page-btn next">&gt;</button>
+            </div> -->
+
+
+            <!-- product list view end -->
+
+            <!-- Categories list view start -->
+            <h2>Categories List</h2>
+            <div class="table-container" id="Categories">
+
+                <table>
+                    <thead>
+
+                        <tr>
+                            <th>Category ID</th>
+                            <th>Category Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    {%if category_db %}
+                    {% for category in category_db %}
+                    <tbody>
+
+                        <tr>
+                            <td data-label="Categories ID">{{category.category_id}}</td>
+                            <td data-label="Categories Name">{{category.category_name}}</td>
+                            <td data-label="Actions">
+                                <a class="edit">Edit</a>
+                                <a class="delete" href="/admin/categories/delete/{{category.category_id}}" onclick="return confirm('Are you sure?')">Delete</a>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="3" style="text-align: center;">No Categories found</td>
+                    </tr>
+                    {% endif %}
+                </table>
+
+            </div>
+            <!-- <div class="pagination">
+                <button class="page-btn prev">&lt;</button>
+                <span class="page-info">Page 1 of 10</span>
+                <button class="page-btn next">&gt;</button>
+            </div> -->
+
+            <!-- Categories view ends  -->
+
+            <!-- orders view start  -->
+            <br>
+            <h2>Recent Orders</h2>
+            <div class="table-container" id="orders">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>User Name</th>
+                            <th>Product name</th>
+                            <th>Quantity</th>
+                            <th>Total Price</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td data-label="Order ID">1</td>
+                            <td data-label="User Name ">Anndi</td>
+                            <td data-label="Product name">apple</td>
+                            <td data-label="Qty">12</td>
+                            <td data-label="Price">120</td>
+                            <td data-label="Status">
+                                <select name="" id="">
+                                    <option value="pending">Pending</option>
+                                    <option value="shipped">Shipped</option>
+                                    <option value="delivered">Delivered</option>
+                                    <option value="delivered">Arriveld</option>
+                                </select>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+            <!-- <div class="pagination">
+                <button class="page-btn prev">&lt;</button>
+                <span class="page-info">Page 1 of 10</span>
+                <button class="page-btn next">&gt;</button>
+            </div> -->
+    </main>
+
+
+    <footer>
+      <div class="footer-content">
+            <p>&copy; 2024 GroceryApp Admin Panel. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/script.js"></script>
+
+</body>
+
+</html>
