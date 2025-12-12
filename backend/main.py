@@ -57,12 +57,31 @@ def profile(request: Request ):
  
 @app.get("/index", response_class=HTMLResponse)
 async def home(request : Request ):
+    category_db= crud.get_categories(  next(get_db()) )
+    category_db_list =[
+        {
+            "category_name":category.name
+        } for category in category_db
+    ]
+    
     context = {"request": request, "title": "Home - GroceryApp"}
-    return templates.TemplateResponse("index.html", context)
+    return templates.TemplateResponse("index.html", context | {"category_db": category_db_list} )
+#peoduct listing route
 @app.get("/products", response_class=HTMLResponse)
 async def products(request : Request ):
+    category_db= crud.get_categories(  next(get_db()) )
+    category_db_list_p =[
+        {
+            "category_name":category.name
+        } for category in category_db
+    ]
     context = {"request": request, "title": "Products - GroceryApp"}
-    return templates.TemplateResponse("products.html", context)
+    return templates.TemplateResponse("products.html", context  | {"category_db": category_db_list_p} )
+#products api route
+@app.get("/api/products")
+async def get_products_api(db: Session = Depends(get_db)):
+    products = crud.get_products(db)
+    return products
 
 @app.get("/cart", response_class=HTMLResponse)
 async def cart(request : Request ):
@@ -103,7 +122,7 @@ async def main_products(request: Request, db: Session = Depends(get_db)):
     ]
     
     
-    return templates.TemplateResponse("admin/index.html", {"request": request, "products": product_db , "category_db": category_db})
+    return templates.TemplateResponse("admin/index.html" ,{"request": request, "products": product_db , "category_db": category_db})
 
 
 @app.get("/admin/products", response_class=HTMLResponse)

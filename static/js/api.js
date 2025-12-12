@@ -2,7 +2,7 @@
    Simple API helpers and local cart storage.
    Update API_BASE to match your backend (e.g., http://localhost:8000/api)
 */
-const API_BASE = '/api'; // change to full URL if backend on different host, e.g. "http://localhost:8000/api"
+const API_BASE = 'http://localhost:8000/api'; // change to full URL if backend on different host, e.g. "http://localhost:8000/api"
 
 async function apiFetch(path, opts = {}) {
   const headers = opts.headers || {};
@@ -18,10 +18,10 @@ async function apiFetch(path, opts = {}) {
     // try to parse error JSON
     const text = await res.text();
     let err = text;
-    try { err = JSON.parse(text); } catch(e){}
+    try { err = JSON.parse(text); } catch (e) { }
     throw new Error(err.message || res.statusText || text);
   }
-  return res.json().catch(()=> ({}));
+  return res.json().catch(() => ({}));
 }
 
 /* Products */
@@ -32,10 +32,11 @@ async function apiGetProducts() {
   } catch (err) {
     // demo fallback
     return [
-      { id: 1, name: 'Banana (1kg)', price: 40, image: 'https://via.placeholder.com/300x200?text=Banana'},
-      { id: 2, name: 'Tomato (1kg)', price: 60, image: 'https://via.placeholder.com/300x200?text=Tomato'},
-      { id: 3, name: 'Milk (1L)', price: 45, image: 'https://via.placeholder.com/300x200?text=Milk'},
-      { id: 4, name: 'Bread (loaf)', price: 35, image: 'https://via.placeholder.com/300x200?text=Bread'}
+      { id: 1, name: 'Banana (1kg)', price: 40, image: 'https://img.freepik.com/free-photo/background-sugar-cubes_93675-131274.jpg' },
+      { id: 2, name: 'Tomato (1kg)', price: 60, image: 'https://via.placeholder.com/300x200?text=Tomato' },
+      { id: 3, name: 'Milk (1L)', price: 45, image: 'https://via.placeholder.com/300x200?text=Milk' },
+      { id: 4, name: 'Bread (loaf)', price: 35, image: 'https://via.placeholder.com/300x200?text=Bread' },
+      { id: 5, name: 'Bread (loaf)', price: 35, image: 'https://via.placeholder.com/300x200?text=Bread' }
     ];
   }
 }
@@ -58,14 +59,14 @@ async function apiCheckout(orderData) {
 
 /* Helpers: token */
 function saveToken(t) { localStorage.setItem('token', t); }
-function getToken(){ return localStorage.getItem('token'); }
-function clearAuth(){ localStorage.removeItem('token'); }
+function getToken() { return localStorage.getItem('token'); }
+function clearAuth() { localStorage.removeItem('token'); }
 
 /* Cart helpers stored in localStorage under key 'grocery_cart' */
 function getCartItems() {
   try {
     return JSON.parse(localStorage.getItem('grocery_cart') || '[]');
-  } catch(e){ return []; }
+  } catch (e) { return []; }
 }
 function saveCart(items) {
   localStorage.setItem('grocery_cart', JSON.stringify(items));
@@ -76,8 +77,15 @@ function addToCart(product, qty = 1) {
   if (idx >= 0) {
     items[idx].qty += qty;
   } else {
-    items.push({ id: product.id, name: product.name, price: product.price, image: product.image, qty });
+    items.push({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image_url: product.image_url,
+      qty
+    });
   }
+  console.log("PRODUCT IMAGE:", product.image_url);
   saveCart(items);
 }
 function removeFromCart(productId) {
@@ -97,11 +105,11 @@ function clearCart() {
 
 function getCartTotal() {
   const items = getCartItems();
-  return items.reduce((s,i) => s + (i.price||0) * (i.qty||0), 0);
+  return items.reduce((s, i) => s + (i.price || 0) * (i.qty || 0), 0);
 }
 
 function updateCartCountUI() {
-  const count = getCartItems().reduce((s,i)=>s + (i.qty||0),0);
+  const count = getCartItems().reduce((s, i) => s + (i.qty || 0), 0);
   document.querySelectorAll('#cart-count').forEach(el => el.textContent = count);
 }
 

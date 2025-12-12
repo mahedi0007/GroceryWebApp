@@ -12,10 +12,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (featuredGrid) {
     const products = await apiGetProducts();
     featuredGrid.innerHTML = '';
-    products.slice(0,4).forEach(p => {
+    products.slice(0,5).forEach(p => {
       const d = document.createElement('div');
       d.className = 'card';
-      d.innerHTML = `<img src="${p.image||'https://via.placeholder.com/300'}" alt="${p.name}">
+      d.innerHTML = `<img src="${p.image_url||'https://img.freepik.com/free-photo/background-sugar-cubes_93675-131274.jpg'}" alt="${p.name}">
         <h3>${p.name}</h3>
         <p class="price">₹${p.price.toFixed(2)}</p>
         <div class="card-actions">
@@ -24,4 +24,25 @@ document.addEventListener('DOMContentLoaded', async () => {
       featuredGrid.appendChild(d);
     });
   }
+
+//products.html all products display
+  const productGrid = document.getElementById('products-grid');
+  if (productGrid) {
+    const products = await apiGetProducts();
+    productGrid.innerHTML = '';
+    products.slice(0,25).forEach(p => {
+      const d = document.createElement('div');
+      d.className = 'card';
+      d.innerHTML = `<img src="${p.image_url||'https://img.freepik.com/free-photo/background-sugar-cubes_93675-131274.jpg'}" alt="${p.name}">
+        <h3>${p.name}</h3>
+        <p class="price">₹${p.price.toFixed(2)}</p>
+        <div class="card-actions">
+          <button class="btn" onclick='addToCart(${JSON.stringify(p)},1); updateCartCountUI();'>Add</button>
+        </div>`;
+      productGrid.appendChild(d);
+    });
+  }
+
+
+
 });

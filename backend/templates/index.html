@@ -1,13 +1,15 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>{{ title }}</title>
-  <link rel="stylesheet" href="static/css/style.css" /> 
+  <link rel="stylesheet" href="static/css/style.css" />
 
 
 </head>
+
 <body>
   <header class="site-header">
     <div class="logo"><a href="/index">GroceryApp</a></div>
@@ -28,18 +30,22 @@
 
     <section class="featured">
       <h2>Featured products</h2>
-      <div id="featured-grid" class="grid"></div>
+      <div id="featured-grid" class="grid">
+
+      </div>
     </section>
 
     <section class="categories">
       <h2>Categories</h2>
       <div class="chips">
         <button class="chip" data-cat="all">All</button>
-        <button class="chip" data-cat="fruits">Fruits</button>
-        <button class="chip" data-cat="vegetables">Vegetables</button>
-        <button class="chip" data-cat="dairy">Dairy</button>
-        <button class="chip" data-cat="snacks">Snacks</button>
+           {%if category_db %}
+                {% for category in category_db %}
+        <button class="chip" data-cat="fruits">{{category.category_name}}</button>
+            {% endfor %}
+            {% endif %}
       </div>
+      <div id="products-grid" class="grid"></div>
     </section>
   </main>
 
@@ -50,4 +56,5 @@
   <script src="static/js/api.js"></script>
   <script src="static/js/main.js"></script>
 </body>
+
 </html>

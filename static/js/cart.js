@@ -15,7 +15,7 @@ function renderCart() {
     row.className = 'card';
     row.innerHTML = `
       <div style="display:flex;gap:12px;align-items:center">
-        <img src="${i.image||'https://via.placeholder.com/120'}" style="width:100px;height:80px;object-fit:cover;border-radius:6px">
+        <img src="${i.image_url ||'https://preview.redd.it/loading-failed-v0-d0igzodwaksd1.jpeg?auto=webp&s=1fdd650c985ce51ded9a7d7b0aa59e26f2169500'}" style="width:100px;height:80px;object-fit:cover;border-radius:6px">
         <div style="flex:1">
           <h3>${i.name}</h3>
           <p>₹${(i.price||0).toFixed(2)} x 
